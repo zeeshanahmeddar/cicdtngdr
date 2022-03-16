@@ -1,9 +1,14 @@
 package cicdtestngdockerpackage;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,8 +17,16 @@ public class TestingCICD {
 	public static WebDriver driver;
 	@BeforeMethod
 	public void lauchDriver() {
+		DesiredCapabilities dc = new DesiredCapabilities();
+		dc.setBrowserName("chrome");
+		dc.setPlatform(Platform.WIN10);
 		System.setProperty("webdriver.chrome.driver", "C:\\Users\\Munir\\eclipse-workspace\\cicdtestngdocker\\src\\test\\resources\\chromedriver.exe");
-		driver = new ChromeDriver();
+		try {
+			driver = new RemoteWebDriver(new URL("http://192.168.56.1:4444/"), dc);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 //		driver.manage().window().maximize();
 	}
