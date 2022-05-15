@@ -5,6 +5,8 @@
     <classes>
       <class name="cicdtestngdockerpackage.TestingCICD">
         <methods>
+          <include name="Test2"/>
+          <include name="quit"/>
           <include name="Test1"/>
           <include name="lauchDriver"/>
         </methods>
